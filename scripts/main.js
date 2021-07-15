@@ -1,6 +1,9 @@
 
 const keyApi ='65f99e24f4029df05d6045bfb0d52cf9'
 let resultatsApi;
+const temps = document.querySelector('.temps');
+const temperature = document.querySelector('.temperature');
+const localisation = document.querySelector('.localisation');
 
 if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(position => {
@@ -20,6 +23,10 @@ function appelApi(long,lat){
         return reponse.json();
     })
     .then((data) => {
-        console.log(data);
+        //console.log(data);
+        resultatsApi = (data); 
+        temps.innerText = resultatsApi.current.weather[0].description;
+        temperature.innerText = `${Math.trunc(resultatsApi.current.temp)}°`
+        localisation.innerText = resultatsApi.timezone;
     })
 }
